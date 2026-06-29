@@ -1051,7 +1051,11 @@ public class JsonbAccessMode implements AccessMode, Closeable, Cleanable<Class<?
         if (annotation != null) {
             return annotation;
         }
-        return Meta.findMeta(param.getAnnotations(), api);
+        final T metaAnnotation = Meta.findMeta(param.getAnnotations(), api);
+        if (metaAnnotation != null) {
+            return metaAnnotation;
+        }
+        return Meta.getAnnotation(param.getType(), api);
     }
 
     @Override
